@@ -6,23 +6,23 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/skyllh-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/skyllh-{{ version }}.tar.gz
   sha256: 60d969fcd38bd7b832a7b0374da8d39a0bcef5a7dbde63c9d9afc8986e3c1b36
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - setuptools
     - wheel
     - versioneer
     - pip
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - astropy
     - numpy
     - scipy
@@ -35,6 +35,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/icecube/skyllh
